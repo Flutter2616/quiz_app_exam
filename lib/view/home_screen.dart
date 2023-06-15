@@ -15,6 +15,8 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
+    qf = Provider.of<Quizprovider>(context, listen: false);
+    qt = Provider.of<Quizprovider>(context, listen: true);
     String level = ModalRoute.of(context)!.settings.arguments as String;
     return SafeArea(
       child: Scaffold(
@@ -44,16 +46,20 @@ class _HomescreenState extends State<Homescreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(onTap: () {
-                            Navigator.pushReplacementNamed(context, 'level');
-                            qf!.start();
-                          },
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushReplacementNamed(context, 'level');
+                              qf!.start();
+                            },
                             child: Icon(Icons.arrow_back_ios_new,
                                 color: Colors.white, size: 20.sp),
                           ),
                           TextButton(
                               onPressed: () {
-                                qf!.i_add();
+                                // qf!.random_Option(
+                                //     q.results![qt!.i].incorrectAnswers,
+                                //     q.results![qt!.i].correctAnswer);
+                                qt!.i_add();
                               },
                               child: Text(
                                 "skip",
@@ -118,70 +124,65 @@ class _HomescreenState extends State<Homescreen> {
                                     ),
                                   )
                                 : Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: qt!.randomlist
-                                          .map((e) => Padding(
-                                                padding: const EdgeInsets
-                                                        .symmetric(
-                                                    vertical: 10.0),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    if (q.results![qt!.i]
-                                                            .correctAnswer ==
-                                                        qt!.randomlist[e]) {
-                                                      qf!.i_add();
-                                                    } else {
-                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                          content: Text(
-                                                              "Your option is wrong",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize: 15
-                                                                      .sp)),
-                                                          backgroundColor:
-                                                              Colors.red
-                                                                  .shade900,
-                                                          behavior:
-                                                              SnackBarBehavior
-                                                                  .floating));
-                                                      qf!.i_add();
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                      width: 50.w,
-                                                      height: 7.h,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20),
-                                                          color:
-                                                              Colors.white,
-                                                          border: Border.all(
-                                                              color: Colors
-                                                                  .black,
-                                                              width: 2)),
-                                                      child: Text("$e",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black,
-                                                              fontSize:
-                                                                  15.sp,
-                                                              fontWeight: FontWeight
-                                                                  .w500))),
-                                                ),
-                                              ))
-                                          .toList(),
-                                    ),
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: qt!.randomlist
+                                        .map((e) => Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10.0),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  // if (q.results![qt!.i]
+                                                  //     .correctAnswer ==
+                                                  //     qt!.randomlist[e]) {
+                                                  //   qf!.i_add();
+                                                  // } else {
+                                                  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  //       content: Text(
+                                                  //           "Your option is wrong",
+                                                  //           style: TextStyle(
+                                                  //               color: Colors
+                                                  //                   .white,
+                                                  //               fontWeight:
+                                                  //               FontWeight
+                                                  //                   .w500,
+                                                  //               fontSize: 15
+                                                  //                   .sp)),
+                                                  //       backgroundColor:
+                                                  //       Colors.red
+                                                  //           .shade900,
+                                                  //       behavior:
+                                                  //       SnackBarBehavior
+                                                  //           .floating));
+                                                  //   qf!.i_add();
+                                                  // }
+                                                },
+                                                child: Container(
+                                                    width: 50.w,
+                                                    height: 7.h,
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                            color: Colors.black,
+                                                            width: 2)),
+                                                    child: Text("$e",
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500))),
+                                              ),
+                                            ))
+                                        .toList(),
+                                  ),
                           ],
                         ),
                       ),

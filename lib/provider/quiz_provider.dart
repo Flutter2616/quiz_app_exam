@@ -9,6 +9,7 @@ class Quizprovider extends ChangeNotifier
   List levellist=["easy","medium","hard"];
   List optionlist=[];
   List randomlist=[];
+  List userlist=[];
   int i=1;
   Future<Quizmodal> quiz_Api_calling(String level)
    async {
@@ -48,6 +49,7 @@ class Quizprovider extends ChangeNotifier
     i=1;
     notifyListeners();
   }
+
 
 
 }
